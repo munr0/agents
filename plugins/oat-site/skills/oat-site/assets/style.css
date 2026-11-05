@@ -1,0 +1,21 @@
+/* Site CSS, loaded after oat. Unlayered rules here beat oat's @layer rules,
+   so no !important and no specificity tricks are needed. */
+
+/* 1. Theme: override oat's variables, keeping light-dark() for dark mode. */
+:root {
+  /* --primary: light-dark(#1d2b4f, #c7d3f0); */
+  /* --primary-foreground: light-dark(#fafafa, #18181b); */
+  /* --container-max: 960px; */
+}
+
+/* 2. Layout oat doesn't provide (page chrome, spacing between page regions).
+      Use oat's variables so everything stays on its scale. */
+body > header,
+body > footer {
+  padding-block: var(--space-4);
+}
+
+body > footer {
+  margin-block-start: var(--space-12);
+  border-block-start: 1px solid var(--border);
+}

@@ -1,0 +1,8 @@
+{
+  "name": "oat-site",
+  "version": "1.0.0",
+  "description": "Build minimal sites on the Oat UI library (knadh/oat) without reinventing what it already ships.",
+  "author": {
+    "name": "Munro Anderson"
+  }
+}

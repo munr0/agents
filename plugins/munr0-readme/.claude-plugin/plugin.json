@@ -1,0 +1,8 @@
+{
+  "name": "munr0-readme",
+  "version": "1.0.0",
+  "description": "Write and revise READMEs in munr0's voice, scaled to the project's field, scope and maturity.",
+  "author": {
+    "name": "Munro Anderson"
+  }
+}
