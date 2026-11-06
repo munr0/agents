@@ -1,9 +1,9 @@
-# Oat v1.1.0 reference
+# Oat 1.1.x reference
 
-Pinned to `@knadh/oat@1.1.0` (tag `v1.1.0`, published 2026-11-01). Compiled from the tagged
-source (`src/css`, `src/js`) and docs (`docs/content`). If the release check reports a newer
-version, see "Updating this reference" at the end, and trust the live docs over this file for
-anything that changed.
+Covers every `@knadh/oat` 1.1.x release. Compiled from the `v1.1.0` source (`src/css`,
+`src/js`) and docs (`docs/content`); patch releases are fixes only and don't change anything
+here. If the release check reports `outdated`, see "Updating this reference" at the end, and
+trust the live docs over this file for anything that changed.
 
 Docs: <https://oat.ink> · Source: <https://github.com/knadh/oat/tree/v1.1.0>
 
@@ -29,7 +29,8 @@ Docs: <https://oat.ink> · Source: <https://github.com/knadh/oat/tree/v1.1.0>
 <script src="https://unpkg.com/@knadh/oat@1.1.0/oat.min.js" defer></script>
 ```
 
-Always pin the version. The docs show an unversioned unpkg URL, which silently follows the
+Always pin an exact version: the `pin` line from `scripts/check-release.sh`, i.e. the latest
+1.1.x patch (1.1.0 above). The docs show an unversioned unpkg URL, which silently follows the
 latest release. Other routes: `npm install @knadh/oat` (`import '@knadh/oat/oat.min.css'`,
 `import '@knadh/oat/oat.min.js'`, or individual files from `@knadh/oat/css` and
 `@knadh/oat/js`), or vendor the two files into the site:
@@ -138,7 +139,7 @@ active tab via the URL hash. Emits `ot-tab-change` with `detail: { index, tab }`
 a tag. `disabled` attribute. `.value` gets and sets an array (setting doesn't emit), `.add(v)`
 adds one, and an `input` event bubbles on add/remove with `detail` set to the array.
 Autocomplete: give the inner input a `list` and a `<datalist>` and fill it from `oninput`; an
-`<option>` can carry an object via `option.data`. **New in 1.1.0:** the datalist is optional
+`<option>` can carry an object via `option.data`. **New in 1.1:** the datalist is optional
 (drop `list` and call `.add()` from any custom picker), and tags can be DOM elements or text
 nodes, rendered inside the badge and deduplicated by `===`.
 
@@ -341,17 +342,24 @@ against the oat version in use.
 
 ## Updating this reference
 
-When `scripts/check-release.sh` reports a newer version `X`:
+Only a new Oat minor or major makes this file outdated. When `scripts/check-release.sh`
+reports `outdated` with latest version `X.Y.Z`:
 
 ```sh
 git clone --depth 50 https://github.com/knadh/oat /tmp/oat && cd /tmp/oat
 git fetch --tags --depth 50
-git log --oneline v1.1.0..vX                 # what changed
-git diff v1.1.0 vX --stat -- src docs/content
-git diff v1.1.0 vX -- docs/content src/css/01-theme.css src/css/utilities.css
+git log --oneline v1.1.0..vX.Y.Z             # what changed
+git diff v1.1.0 vX.Y.Z --stat -- src docs/content
+git diff v1.1.0 vX.Y.Z -- docs/content src/css/01-theme.css src/css/utilities.css
 ```
 
 For the task at hand, read the changed component pages under `docs/content/components/`. To
-update the skill itself, rewrite this file as `oat-X.md` from the tagged docs and source, bump
-`PINNED` in `scripts/check-release.sh` and the URLs in `assets/starter.html`, and add any
-renames to the table above.
+update the skill itself:
+
+1. Rewrite this file as `oat-X.Y.md` from the tagged docs and source, adding any renames to
+   the table above, and delete this one.
+2. Set `version` in the plugin's `.claude-plugin/plugin.json` to `X.Y.0`. The release check
+   reads it from there.
+3. Update the example version in `assets/starter.html`.
+
+Refinements to the skill between Oat releases bump only the plugin's patch number.

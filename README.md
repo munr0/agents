@@ -13,7 +13,7 @@ Skills and tooling for my coding agents, packaged as a [Claude Code](https://cla
 | Plugin | Skill |
 |-|-|
 | [**munr0-readme**](plugins/munr0-readme) | Writes and revises READMEs in my style – scaled to the project's field, scope and maturity rather than a fixed template. Annotated examples from my repos in [`references/examples.md`](plugins/munr0-readme/skills/munr0-readme/references/examples.md). |
-| [**oat-site**](plugins/oat-site) | Builds minimal sites on [Oat](https://oat.ink) without re-implementing components it already ships or working against its semantic-HTML approach. Bundles a pinned API reference and checks it against the latest release before each use. |
+| [**oat-site**](plugins/oat-site) | Builds minimal sites on [Oat](https://oat.ink) without re-implementing components it already ships or working against its semantic-HTML approach. Bundles an API reference for the current Oat minor and checks it against the latest release before each use. |
 
 ## Layout
 
@@ -38,4 +38,6 @@ While editing a skill, skip the install and load it straight from disk with `cla
 
 ## Keeping oat-site current
 
-The Oat reference is pinned to the version in [`check-release.sh`](plugins/oat-site/skills/oat-site/scripts/check-release.sh). When a newer Oat is out, the skill says so on use – follow *Updating this reference* at the bottom of [`oat-1.1.0.md`](plugins/oat-site/skills/oat-site/references/oat-1.1.0.md) to bump it.
+The plugin's version tracks Oat: major.minor is the Oat release the reference covers, patch is my own refinements in between. Oat's patch releases are fixes only, so the skill stays current through them – it just pins new sites to the latest patch.
+
+[`check-release.sh`](plugins/oat-site/skills/oat-site/scripts/check-release.sh) reads the covered version from `plugin.json` and flags a new Oat minor or major on use. To catch up, follow *Updating this reference* at the bottom of [`oat-1.1.md`](plugins/oat-site/skills/oat-site/references/oat-1.1.md).

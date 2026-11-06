@@ -28,12 +28,16 @@ Run the bundled check before writing code:
 sh <skill-dir>/scripts/check-release.sh
 ```
 
-- **current:** use `references/oat-1.1.0.md` as the source of truth.
-- **newer release available:** the reference may be stale. Open the compare link it prints and
-  read the changed pages on <https://oat.ink> (or `docs/content/components/` at the new tag)
-  for every component you use. Pin the site to the *latest* version, and tell the user the
-  skill's reference is behind so they can update it (steps at the end of the reference).
-- **unchecked (offline):** use the pinned version and reference, and say so.
+The skill tracks Oat by minor version: `references/oat-1.1.md` covers every 1.1.x release,
+because Oat's patch releases are fixes only. Whatever the status, pin the site to the exact
+version on the `pin:` line.
+
+- **current:** use `references/oat-1.1.md` as the source of truth.
+- **outdated:** a newer Oat minor or major is out and the reference may be stale. Open the
+  compare link it prints and read the changed pages on <https://oat.ink> (or
+  `docs/content/components/` at the new tag) for every component you use, and tell the user
+  the skill's reference is behind so they can update it (steps at the end of the reference).
+- **unchecked (offline):** use the reference and the `pin:` version, and say so.
 
 Don't rely on memory of Oat's API. It has renamed things across releases (see "Renamed or
 removed" in the reference), and models often confuse it with Pico CSS, Bootstrap or Tailwind
@@ -42,7 +46,7 @@ class names. Look it up.
 ## 2. Reach for what exists
 
 Before writing any CSS rule or line of JS, find the need in this table, then read its section
-in `references/oat-1.1.0.md`. Only build something when it's genuinely missing.
+in `references/oat-1.1.md`. Only build something when it's genuinely missing.
 
 | Need | Use | Not |
 |-|-|-|
@@ -112,8 +116,8 @@ load it anyway). Write JS only for application logic, and keep it as
 
 ## 4. Starting a new site
 
-Copy `assets/starter.html` and `assets/style.css` (pinned to 1.1.0; update both URLs if the
-release check found a newer version). For a static host like GitHub Pages, that is the whole
+Copy `assets/starter.html` and `assets/style.css`, and set both Oat URLs to the release
+check's `pin:` version. For a static host like GitHub Pages, that is the whole
 project: `index.html`, `style.css`, assets, plus whatever the host needs (`CNAME`, favicon,
 `robots.txt`). Add pages as more `.html` files. Reach for a static site generator only if the
 user asks for one or the site has many templated pages.
@@ -123,7 +127,7 @@ covers what it's doing.
 
 ## 5. Before you finish
 
-- Did you run the release check, and is the pinned version in the HTML the one you looked up?
+- Did you run the release check, and do both Oat URLs pin the exact `pin:` version it printed?
 - Grep your CSS: any `!important`, hard-coded colours, or rules restyling `button`, `input`,
   `dialog`, `table`, `.card`, `.badge` and the like beyond variables? Justify or remove them.
 - Grep your JS: does any of it open dialogs, position menus, switch tabs, show tooltips or

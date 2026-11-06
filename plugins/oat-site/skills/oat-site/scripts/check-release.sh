@@ -1,12 +1,17 @@
 #!/bin/sh
-# Compare the Oat version this skill's reference is pinned to with the latest
-# release on npm (which is published from the GitHub tags).
+# Check the latest Oat release against the Oat minor version this skill covers.
+#
+# The plugin version tracks Oat: major.minor = the Oat release the reference is
+# written for, patch = this skill's own revisions. Upstream patch releases are
+# fixes only, so they don't make the skill outdated, but sites should still pin
+# the latest patch.
 #
 # Usage: sh check-release.sh
-# Exit:  0 = up to date, 1 = newer release available, 2 = couldn't check
+# Exit:  0 = current, 1 = outdated (newer Oat minor/major), 2 = couldn't check
 
-PINNED=1.1.0
 PKG=@knadh/oat
+ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
+COVERS=$(sed -n 's/.*"version": *"\([0-9]*\.[0-9]*\)\..*/\1/p' "$ROOT/.claude-plugin/plugin.json")
 
 latest=""
 if command -v npm >/dev/null 2>&1; then
@@ -21,21 +26,23 @@ if [ -z "$latest" ] && command -v curl >/dev/null 2>&1; then
     sed -n 's/.*"tag_name": *"v\{0,1\}\([^"]*\)".*/\1/p' | head -n 1)
 fi
 
-echo "pinned: $PINNED"
+echo "covers: $COVERS.x (references/oat-$COVERS.md)"
 if [ -z "$latest" ]; then
   echo "latest: unknown (no network access to npm or GitHub)"
-  echo "status: unchecked - use the pinned reference, and tell the user it may be out of date"
+  echo "status: unchecked - tell the user the reference may be out of date"
+  echo "pin:    $PKG@$COVERS.0"
   exit 2
 fi
 echo "latest: $latest"
+echo "pin:    $PKG@$latest"
 
-if [ "$latest" = "$PINNED" ]; then
-  echo "status: current - the bundled reference matches the latest release"
+if [ "${latest%.*}" = "$COVERS" ]; then
+  echo "status: current"
   exit 0
 fi
 
-echo "status: newer release available"
-echo "  changelog: https://github.com/knadh/oat/compare/v$PINNED...v$latest"
+echo "status: outdated - Oat $latest is newer than the $COVERS.x this skill covers"
+echo "  changelog: https://github.com/knadh/oat/compare/v$COVERS.0...v$latest"
 echo "  docs:      https://oat.ink (always shows the latest release)"
-echo "  see 'Updating this reference' in references/oat-$PINNED.md"
+echo "  see 'Updating this reference' in references/oat-$COVERS.md"
 exit 1
