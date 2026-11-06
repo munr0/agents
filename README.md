@@ -26,6 +26,16 @@ plugins/<plugin>/
 
 New plugins go under `plugins/` and get an entry in `marketplace.json`.
 
+## Updating
+
+Bump `version` in a plugin's `plugin.json` with every change – installs compare that field, so an unbumped push won't reach them. Then on each machine:
+
+```sh
+/plugin marketplace update munr0
+```
+
+While editing a skill, skip the install and load it straight from disk with `claude --plugin-dir plugins/<plugin>`.
+
 ## Keeping oat-site current
 
 The Oat reference is pinned to the version in [`check-release.sh`](plugins/oat-site/skills/oat-site/scripts/check-release.sh). When a newer Oat is out, the skill says so on use – follow *Updating this reference* at the bottom of [`oat-1.1.0.md`](plugins/oat-site/skills/oat-site/references/oat-1.1.0.md) to bump it.
