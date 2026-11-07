@@ -1,0 +1,21 @@
+{
+  "name": "munr0",
+  "owner": {
+    "name": "Munro Anderson"
+  },
+  "metadata": {
+    "description": "Skills and tooling for munr0's coding agents."
+  },
+  "plugins": [
+    {
+      "name": "munr0-readme",
+      "source": "./plugins/munr0-readme",
+      "description": "Write and revise READMEs in munr0's voice, scaled to the project's field, scope and maturity."
+    },
+    {
+      "name": "oat-site",
+      "source": "./plugins/oat-site",
+      "description": "Build minimal sites on the Oat UI library without reinventing what it already ships."
+    }
+  ]
+}

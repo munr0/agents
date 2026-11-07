@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site name</title>
+  <meta name="description" content="One sentence about the site.">
+
+  <!-- Oat, pinned to an exact version: use the `pin:` line from check-release.sh in both URLs. -->
+  <link rel="stylesheet" href="https://unpkg.com/@knadh/oat@1.1.0/oat.min.css">
+  <script src="https://unpkg.com/@knadh/oat@1.1.0/oat.min.js" defer></script>
+
+  <!-- Site CSS goes after oat: theme variables first, then only the layout oat doesn't cover. -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="container hstack justify-between">
+    <a href="/" class="unstyled"><strong>Site name</strong></a>
+    <nav aria-label="Main" class="hstack">
+      <a href="/" class="unstyled" aria-current="page">Home</a>
+      <a href="#about" class="unstyled">About</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Heading</h1>
+    <p class="text-light">A plain paragraph is already styled.</p>
+  </main>
+
+  <footer class="container">
+    <small class="text-light">Footer</small>
+  </footer>
+</body>
+</html>
